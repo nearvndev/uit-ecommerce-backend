@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import config from "./configs";
+import apiRouter from "./routers";
 
 mongoose.connect(config.mongodb.url, config.mongodb.options)
 .then(function(){
@@ -23,5 +24,7 @@ const PORT = process.env.PORT || 3000;
 app.get('/', async (req, res) => {
     res.json({ status: true, message: "Our node.js app works" })
 });
+
+app.use("/api", apiRouter);
 
 app.listen(PORT, () => console.log(`App listening at port ${PORT}`));
